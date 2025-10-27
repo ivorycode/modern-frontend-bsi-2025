@@ -26,6 +26,9 @@ npm start
 
 ## Testing the Endpoints
 
+### Using the web interface:
+Visit http://localhost:3000/test.html in your browser to test both endpoints with a simple web form.
+
 ### Test JSON endpoint:
 ```bash
 curl -X POST http://localhost:3000/api/json \

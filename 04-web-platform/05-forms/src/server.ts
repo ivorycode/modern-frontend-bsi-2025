@@ -1,8 +1,17 @@
 import Fastify from 'fastify';
 import multipart from '@fastify/multipart';
+import staticPlugin from '@fastify/static';
+import path from 'path';
 
 const fastify = Fastify({
   logger: true
+});
+
+// Register static plugin to serve test.html and other static files
+// Root points to project root (one level up from src/)
+fastify.register(staticPlugin, {
+  root: path.join(__dirname, '..'),
+  prefix: '/'
 });
 
 // Register multipart plugin to handle FormData (multipart/form-data)
@@ -41,7 +50,8 @@ const start = async () => {
   try {
     await fastify.listen({ port: 3000 });
     console.log('Server is running on http://localhost:3000');
-    console.log('Available endpoints:');
+    console.log('Test page: http://localhost:3000/test.html');
+    console.log('\nAvailable endpoints:');
     console.log('  POST /api/json  - Send JSON data');
     console.log('  POST /api/form  - Send form data');
   } catch (err) {
