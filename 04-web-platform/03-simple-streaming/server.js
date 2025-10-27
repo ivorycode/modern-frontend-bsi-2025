@@ -1,4 +1,6 @@
 const http = require('http');
+const fs = require('fs');
+const path = require('path');
 
 const server = http.createServer((req, res) => {
     // Handle /api endpoint for fetch streaming
@@ -19,12 +21,42 @@ const server = http.createServer((req, res) => {
             res.write(data);
         }, 1000);
 
-        // End the stream after 10 seconds
+        // End the stream
         setTimeout(() => {
             clearInterval(interval);
             res.write(JSON.stringify({ message: 'End of stream' }) + '\n');
             res.end();
         }, 10000);
+        return;
+    }
+
+    // Serve /app route
+    if (req.url === '/app') {
+        const filePath = path.join(__dirname, 'app.html');
+        fs.readFile(filePath, (err, data) => {
+            if (err) {
+                res.writeHead(404);
+                res.end('Not found');
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'text/html' });
+            res.end(data);
+        });
+        return;
+    }
+
+    // Serve app-script.js
+    if (req.url === '/app-script.js') {
+        const filePath = path.join(__dirname, 'app-script.js');
+        fs.readFile(filePath, (err, data) => {
+            if (err) {
+                res.writeHead(404);
+                res.end('Not found');
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'application/javascript' });
+            res.end(data);
+        });
         return;
     }
 
