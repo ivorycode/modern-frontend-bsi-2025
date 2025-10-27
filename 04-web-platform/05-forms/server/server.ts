@@ -21,7 +21,8 @@ fastify.register(multipart, { attachFieldsToBody: true });
 // First endpoint: Handle JSON data
 fastify.post('/api/json', async (request, reply) => {
   console.log('=== JSON Data Received ===');
-  console.log(request.body);
+  const submittedData = request.body;
+  console.log(submittedData);
   console.log('========================\n');
 
   return { success: true, message: 'JSON data received and logged' };
@@ -33,13 +34,13 @@ fastify.post('/api/form', async (request, reply) => {
   const formData = await request.formData();
 
   // Create a plain JavaScript object from FormData
-  const extractedData: Record<string, any> = {};
+  const submittedData: Record<string, any> = {};
   for (const [key, value] of formData.entries()) {
-    extractedData[key] = value;
+    submittedData[key] = value;
   }
 
   console.log('=== Form Data Received ===');
-  console.log(extractedData);
+  console.log(submittedData);
   console.log('=========================\n');
 
   return { success: true, message: 'Form data received and logged' };
