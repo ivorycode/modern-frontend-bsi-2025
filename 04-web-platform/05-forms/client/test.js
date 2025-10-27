@@ -32,3 +32,12 @@ async function testForm(event) {
         document.getElementById('formResult').textContent = 'Error: ' + error.message;
     }
 }
+
+// Add event listeners when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    const jsonButton = document.getElementById('jsonButton');
+    const form = document.getElementById('testForm');
+
+    jsonButton.addEventListener('click', testJSON);
+    form.addEventListener('submit', testForm);
+});

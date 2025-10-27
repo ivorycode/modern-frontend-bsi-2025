@@ -21,13 +21,13 @@
         <h2>Test JSON Endpoint</h2>
         <input type="text" id="jsonName" placeholder="Name" value="John Doe">
         <input type="email" id="jsonEmail" placeholder="Email" value="john@example.com">
-        <button onclick="testJSON()">Send JSON</button>
+        <button id="jsonButton">Send JSON</button>
         <div class="result" id="jsonResult"></div>
     </div>
 
     <div class="section">
         <h2>Test Form Endpoint</h2>
-        <form id="testForm" onsubmit="testForm(event)">
+        <form id="testForm">
             <input type="text" name="name" placeholder="Name" value="Jane Doe">
             <input type="email" name="email" placeholder="Email" value="jane@example.com">
             <button type="submit">Submit Form</button>
