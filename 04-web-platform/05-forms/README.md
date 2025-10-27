@@ -7,6 +7,18 @@ A simple TypeScript project with Fastify that implements two API endpoints.
 1. **POST /api/json** - Accepts JSON data and prints it to the console
 2. **POST /api/form** - Accepts native web platform FormData (multipart/form-data) and prints it to the console
 
+## Project Structure
+
+```
+05-forms/
+├── client/          # Client-side files (served statically)
+│   ├── test.html    # Test page UI
+│   └── test.js      # Client-side JavaScript
+├── server/          # Server-side code
+│   └── server.ts    # Fastify server
+└── package.json
+```
+
 ## Requirements
 
 - Node.js 20+ (required for native FormData API support)

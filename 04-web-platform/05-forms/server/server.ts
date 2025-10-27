@@ -8,9 +8,9 @@ const fastify = Fastify({
 });
 
 // Register static plugin to serve test.html and other static files
-// Root points to project root (one level up from src/)
+// Root points to client directory
 fastify.register(staticPlugin, {
-  root: path.join(__dirname, '..'),
+  root: path.join(__dirname, '../client'),
   prefix: '/'
 });
 
