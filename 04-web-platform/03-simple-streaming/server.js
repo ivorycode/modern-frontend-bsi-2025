@@ -1,6 +1,34 @@
 const http = require('http');
 
 const server = http.createServer((req, res) => {
+    // Handle /api endpoint for fetch streaming
+    if (req.url === '/api') {
+        res.writeHead(200, {
+            'Content-Type': 'application/json',
+            'Transfer-Encoding': 'chunked',
+            'Cache-Control': 'no-cache'
+        });
+
+        let count = 0;
+        const interval = setInterval(() => {
+            count++;
+            const data = JSON.stringify({
+                message: `Streaming data chunk ${count}`,
+                timestamp: new Date().toISOString()
+            }) + '\n';
+            res.write(data);
+        }, 1000);
+
+        // End the stream after 10 seconds
+        setTimeout(() => {
+            clearInterval(interval);
+            res.write(JSON.stringify({ message: 'End of stream' }) + '\n');
+            res.end();
+        }, 10000);
+        return;
+    }
+
+    // Default HTML streaming handler
     res.writeHead(200, {'Content-Type': 'text/html'});
 
     // Stream HTML content in chunks
