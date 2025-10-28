@@ -1,3 +1,6 @@
+*solution*
+
+
 workshop.db
 
 # Logs
@@ -68,6 +71,7 @@ Thumbs.db
 # IDEs
 .idea/
 *.iml
+.claude/
 
 # VS Code (allow recommended project files)
 .vscode/*

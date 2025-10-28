@@ -2,9 +2,16 @@ import Fastify from 'fastify';
 import multipart from '@fastify/multipart';
 import staticPlugin from '@fastify/static';
 import path from 'path';
+import { z } from 'zod';
 
 const fastify = Fastify({
   logger: true
+});
+
+// Zod validation schema for form data
+const formDataSchema = z.object({
+  name: z.string().min(1, 'Name is required').trim(),
+  email: z.string().min(1, 'Email is required').email('Invalid email format').trim()
 });
 
 // Register static plugin to serve test.html and other static files
@@ -21,29 +28,62 @@ fastify.register(multipart, { attachFieldsToBody: true });
 // First endpoint: Handle JSON data
 fastify.post('/api/json', async (request, reply) => {
   console.log('=== JSON Data Received ===');
-  const submittedData = request.body;
+
+  // Validate request body with Zod
+  const result = formDataSchema.safeParse(request.body);
+
+  if (!result.success) {
+    reply.status(400);
+    return {
+      success: false,
+      error: 'Validation failed',
+      issues: result.error.issues.map(issue => ({
+        path: issue.path.join('.'),
+        message: issue.message
+      }))
+    };
+  }
+
+  const submittedData = result.data;
   console.log(submittedData);
   console.log('========================\n');
 
-  return { success: true, message: 'JSON data received and logged' };
+  return { success: true, message: 'JSON data received and logged', data: submittedData };
 });
 
 // Second endpoint: Handle form data using native FormData API
 fastify.post('/api/form', async (request, reply) => {
+  console.log('=== Form Data Received ===');
+
   // Use native FormData API (requires Node.js 20+)
   const formData = await request.formData();
 
   // Create a plain JavaScript object from FormData
-  const submittedData: Record<string, any> = {};
+  const rawData: Record<string, any> = {};
   for (const [key, value] of formData.entries()) {
-    submittedData[key] = value;
+    rawData[key] = value;
   }
 
-  console.log('=== Form Data Received ===');
+  // Validate with Zod
+  const result = formDataSchema.safeParse(rawData);
+
+  if (!result.success) {
+    reply.status(400);
+    return {
+      success: false,
+      error: 'Validation failed',
+      issues: result.error.issues.map(issue => ({
+        path: issue.path.join('.'),
+        message: issue.message
+      }))
+    };
+  }
+
+  const submittedData = result.data;
   console.log(submittedData);
   console.log('=========================\n');
 
-  return { success: true, message: 'Form data received and logged' };
+  return { success: true, message: 'Form data received and logged', data: submittedData };
 });
 
 // Start the server
