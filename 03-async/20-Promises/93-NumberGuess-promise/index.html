@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+Guess a number:
+<input id="guess" value="42">
+<button id="submit">Guess!</button>
+<button id="reset">Reset!</button>
+<pre id="result"></pre>
+
+<script src="axios.min.js"></script>
+<script>
+
+  const guessInput = document.getElementById('guess');
+  const submitButton = document.getElementById('submit');
+  const resetButton = document.getElementById('reset');
+  const resultText = document.getElementById('result');
+
+  submitButton.addEventListener('click', sendGuess);
+  resetButton.addEventListener('click', sendReset);
+
+  function sendGuess() {
+    axios.post('http://localhost:3456/numberguess', {number: guessInput.value})
+      .then(() => {
+        // after the post, we must do a get to get the result ...
+        resultText.innerText = 'TODO';
+      });
+  }
+
+  function sendReset() {
+    axios.post('http://localhost:3456/numberguess/reset');
+  }
+
+
+</script>
+</body>
+</html>

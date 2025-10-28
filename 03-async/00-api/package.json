@@ -1,0 +1,16 @@
+{
+  "name": "async-demo-server",
+  "version": "0.0.1",
+  "author": "Jonas Bandi",
+  "description": "A demo api",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "start": "node --watch server.js"
+  },
+  "dependencies": {
+    "express": "5.1.0",
+    "morgan": "1.9.1"
+  }
+}

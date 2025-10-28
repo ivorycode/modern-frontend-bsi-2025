@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8"/>
+<head>
+    <title></title>
+</head>
+<body>
+<img src="spinner.gif"/>
+
+<div id="container"></div>
+
+<button id="myButton">Click Me!</button>
+<br>
+
+<script>
+
+    setTimeout(doCalculations, 3000); // this starts blocking the main thread
+
+    document.getElementById('myButton').addEventListener('click', () => {
+        alert('Hello World!')
+    })
+
+    // CALL NON BLOCKING ALTERNATIVE
+    setTimeout(startWorkInWebWorker, 1000);
+
+
+    function doCalculations() {
+
+        for (let i = 30; i < 43; i++) {
+            const start = new Date();
+            const res = fibonacci(i);
+            const end = new Date();
+            console.log("Input: " + i + " Result: " + res + ", Time: " + (end - start));
+        }
+        p = document.createElement('p');
+        p.innerHTML = "Hello from second script: " + new Date();
+        document.getElementById("container").appendChild(p);
+    }
+
+
+    function startWorkInWebWorker() {
+        const worker = new Worker('worker.js');
+        worker.postMessage('Ping?');
+        worker.onmessage = function (result) {
+            console.log("Result: ", result.data)
+        };
+    }
+
+
+    function fibonacci(n) {
+        if (n < 2)
+            return 1;
+        else
+            return fibonacci(n - 2) + fibonacci(n - 1);
+    }
+
+
+</script>
+Hello World!
+</body>
+</html>

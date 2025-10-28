@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<div id="content"></div>
+
+<script src="axios.min.js"></script>
+<script type="module">
+
+    var promise = axios.get('http://localhost:3456/word/0');
+    promise.then(function(response){
+        document.getElementById('content').textContent = response.data;
+    });
+
+</script>
+</body>
+</html>
