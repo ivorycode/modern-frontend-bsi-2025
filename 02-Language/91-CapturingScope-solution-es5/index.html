@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<div id="list"></div>
+<button id="task2">Task 2</button>
+<br>
+<button id="task3">Task 3</button>
+
+<script>
+    ////////////////////////////////////////////////////
+    // Task 1
+    var list = document.getElementById('list');
+    list.innerHTML = '';
+
+    var nums = [1, 2, 3];
+    for (let i = 0; i < nums.length; i++) {
+        var num = nums[i];
+
+        var elem = document.createElement('div');
+        elem.textContent = num;
+
+        elem.addEventListener('click', function(n) {
+            // var n = num; // alternative to passing n as parameter
+            return function(){
+                // n is captured in the closure
+                alert(n);
+            }
+        }(num));
+
+        list.appendChild(elem);
+    }
+
+    ////////////////////////////////////////////////////
+    // Task 2
+    var buttonTask2 = document.getElementById('task2');
+    // constructor function for a counter
+    function Counter(){
+        var self = this
+        this.state = 0;
+        this.increase = function () {
+            self.state++;
+            alert('Current state: ' + self.state);
+        }
+    }
+
+    var counter = new Counter();
+
+    buttonTask2.addEventListener('click', counter.increase);
+
+    ////////////////////////////////////////////////////
+    // Task 3
+    var buttonTask3 = document.getElementById('task3');
+    var number = 0
+
+    function increment() {
+        number += 1
+
+        return function() {
+            var message = `Incremented to ${number}`
+            alert(`Number: ${number} - ${message}`)
+        }
+    }
+
+    const log = increment()
+    increment()
+    increment()
+
+    buttonTask3.addEventListener('click', log);
+
+
+</script>
+
+</body>
+</html>
