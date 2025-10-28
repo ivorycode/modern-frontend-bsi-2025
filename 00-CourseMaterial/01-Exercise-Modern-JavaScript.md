@@ -51,7 +51,7 @@ chalk(colorOption, "Success!");
 
 **Using Import-Map:**
 In `index.html`:
-
+```
 <script type="importmap">
     {
       "imports": {
@@ -59,6 +59,8 @@ In `index.html`:
       }
     }
 </script>
+```
+
 
 Then in `app.js`:
 ```
