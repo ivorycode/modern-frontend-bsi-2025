@@ -1,4 +1,4 @@
-*solution*
+#*solution*
 
 
 workshop.db
@@ -33,7 +33,7 @@ coverage/
 dist/
 build/
 out/
-lib/
+#lib/
 
 # Caches
 .cache/
