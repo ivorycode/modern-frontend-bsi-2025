@@ -28,13 +28,6 @@ class GreetingCard extends HTMLElement {
                     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
                 }
 
-                .greeting {
-                    font-size: 24px;
-                    font-weight: bold;
-                    color: var(--card-color, #333);
-                    margin: 0 0 10px 0;
-                }
-
                 .message {
                     color: #666;
                     font-size: 16px;
@@ -43,7 +36,7 @@ class GreetingCard extends HTMLElement {
             </style>
 
             <div class="card">
-                <p class="greeting">Hello, <span id="name"></span>! 👋</p>
+                <card-heading id="heading" icon="👋"></card-heading>
                 <div class="message">
                     <slot>Default message goes here</slot>
                 </div>
@@ -73,14 +66,17 @@ class GreetingCard extends HTMLElement {
     }
 
     updateName() {
-        const nameElement = this.shadowRoot.getElementById('name');
-        nameElement.textContent = this.getAttribute('name') || 'Guest';
+        const heading = this.shadowRoot.getElementById('heading');
+        const name = this.getAttribute('name') || 'Guest';
+        heading.textContent = `Hello, ${name}!`;
     }
 
     updateColor() {
         const card = this.shadowRoot.querySelector('.card');
+        const heading = this.shadowRoot.getElementById('heading');
         const color = this.getAttribute('color') || '#333';
         card.style.setProperty('--card-color', color);
+        heading.setAttribute('color', color);
     }
 }
 

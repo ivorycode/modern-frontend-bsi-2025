@@ -139,6 +139,74 @@ card.setAttribute('name', 'NewName');
 card.setAttribute('color', 'red');
 ```
 
+#### 8. Component Composability
+
+One of the most powerful features of Web Components is that they can be composed together. The `<greeting-card>` component uses the `<card-heading>` component internally to render its heading.
+
+**card-heading.js:**
+```javascript
+class CardHeading extends HTMLElement {
+    // Reusable heading component with icon support
+}
+
+customElements.define('card-heading', CardHeading);
+```
+
+**Usage in greeting-card.js:**
+```html
+<card-heading id="heading" icon="👋"></card-heading>
+```
+
+**Benefits:**
+- **Modularity** - Break complex components into smaller, focused pieces
+- **Reusability** - The `<card-heading>` component can be used in other components
+- **Maintainability** - Changes to heading behavior are centralized
+- **Separation of Concerns** - Each component handles its own styling and logic
+
+The `<greeting-card>` component communicates with the `<card-heading>` component by:
+- Setting its text content via `textContent`
+- Passing attributes like `color` and `icon`
+- Leveraging the heading's own encapsulated styles and behavior
+
+This demonstrates how Web Components can be nested and composed just like native HTML elements, creating a tree of reusable components.
+
+## Components in this Demo
+
+### `<card-heading>`
+A reusable heading component with icon support.
+
+**Attributes:**
+- `icon` - Emoji or icon to display after the text
+- `color` - Text color (default: "#333")
+- `size` - Font size (default: "24px")
+
+**Usage:**
+```html
+<card-heading icon="🎉" color="blue" size="28px">
+    Hello World
+</card-heading>
+```
+
+### `<greeting-card>`
+A greeting card component that uses `<card-heading>` internally.
+
+**Attributes:**
+- `name` - The name to display in the greeting (default: "Guest")
+- `color` - The color for the border and heading (default: "#333")
+
+## File Structure
+
+```
+08-web-components/
+├── index.html           # Demo page with component usage examples
+├── card-heading.js      # Reusable heading component
+├── greeting-card.js     # Greeting card component (uses card-heading)
+├── demo.js             # Interactive demo controls
+└── README.md           # This file
+```
+
+**Note:** Components must be loaded in dependency order. Since `<greeting-card>` uses `<card-heading>`, the `card-heading.js` script must be loaded first.
+
 ## Running the Demo
 
 Simply open `index.html` in a modern web browser. No build tools or dependencies required!
@@ -167,6 +235,7 @@ Web Components are supported in all modern browsers:
 4. **Interoperability** - Works with any JavaScript framework
 5. **Lifecycle management** - Built-in callbacks for component lifecycle
 6. **Reactive** - Components respond to attribute changes automatically
+7. **Composability** - Components can be nested and composed like native HTML elements
 
 ## Further Exploration
 
