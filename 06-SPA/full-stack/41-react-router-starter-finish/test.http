@@ -1,0 +1,11 @@
+###
+POST http://localhost:5173/cart
+Content-Type: "application/json"
+
+{
+  "name": "apple",
+  "quantity": 10
+}
+
+### 
+GET http://localhost:5173/resource/counter

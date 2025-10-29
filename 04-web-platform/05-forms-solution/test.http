@@ -1,0 +1,22 @@
+
+### JSON API
+POST http://localhost:3000/api/json
+Content-Type: application/json
+
+{"name": "John", "email": "john@example.com"}
+
+### FORM API
+POST http://localhost:3000/api/form
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="name"
+
+John
+--WebAppBoundary
+Content-Disposition: form-data; name="email"
+
+john@example.com
+--WebAppBoundary--
+
+###
