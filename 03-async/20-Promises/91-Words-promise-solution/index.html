@@ -8,20 +8,19 @@
 
 <div id="content"></div>
 
-<script src="https://cdn.polyfill.io/v2/polyfill.js?features=Promise"></script>
 <script src="axios.min.js"></script>
 <!--<script src="https://unpkg.com/axios"></script>-->
 <script type="module">
 
-  // const promises = [];
-  // for (let i = 0; i < 9; i++) {
-  //   promises.push(axios.get('http://localhost:3456/word/' + i));
-  // }
-  //
-  // const promise = Promise.all(promises);
-  // promise.then(function (responses) {
-  //   document.getElementById('content').textContent = responses.map(e => e.data).join(" ");
-  // });
+  const promises = [];
+  for (let i = 0; i < 9; i++) {
+    promises.push(axios.get('http://localhost:3456/word/' + i));
+  }
+
+  const promise = Promise.all(promises);
+  promise.then(function (responses) {
+    document.getElementById('content').textContent = responses.map(e => e.data).join(" ");
+  });
 
 
   // const words = [];
@@ -82,28 +81,28 @@
      // }
 
 
-  let response = await axios.get('http://localhost:3456/word/0');
-  appendWord(response.data);
-  response = await axios.get('http://localhost:3456/word/1');
-  appendWord(response.data);
-  response = await axios.get('http://localhost:3456/word/2');
-  appendWord(response.data);
-  response = await axios.get('http://localhost:3456/word/3');
-  appendWord(response.data);
-  response = await axios.get('http://localhost:3456/word/4');
-  appendWord(response.data);
-  response = await axios.get('http://localhost:3456/word/5');
-  appendWord(response.data);
-  response = await axios.get('http://localhost:3456/word/6');
-  appendWord(response.data);
-  response = await axios.get('http://localhost:3456/word/7');
-  appendWord(response.data);
-  response = await axios.get('http://localhost:3456/word/8');
-  appendWord(response.data);
-
-  function appendWord(word){
-      document.getElementById('content').textContent += ' ' + word;
-  }
+  // let response = await axios.get('http://localhost:3456/word/0');
+  // appendWord(response.data);
+  // response = await axios.get('http://localhost:3456/word/1');
+  // appendWord(response.data);
+  // response = await axios.get('http://localhost:3456/word/2');
+  // appendWord(response.data);
+  // response = await axios.get('http://localhost:3456/word/3');
+  // appendWord(response.data);
+  // response = await axios.get('http://localhost:3456/word/4');
+  // appendWord(response.data);
+  // response = await axios.get('http://localhost:3456/word/5');
+  // appendWord(response.data);
+  // response = await axios.get('http://localhost:3456/word/6');
+  // appendWord(response.data);
+  // response = await axios.get('http://localhost:3456/word/7');
+  // appendWord(response.data);
+  // response = await axios.get('http://localhost:3456/word/8');
+  // appendWord(response.data);
+  //
+  // function appendWord(word){
+  //     document.getElementById('content').textContent += ' ' + word;
+  // }
 
 
   //
