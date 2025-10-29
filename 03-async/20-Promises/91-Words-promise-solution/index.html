@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<div id="content"></div>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js?features=Promise"></script>
+<script src="axios.min.js"></script>
+<!--<script src="https://unpkg.com/axios"></script>-->
+<script type="module">
+
+  // const promises = [];
+  // for (let i = 0; i < 9; i++) {
+  //   promises.push(axios.get('http://localhost:3456/word/' + i));
+  // }
+  //
+  // const promise = Promise.all(promises);
+  // promise.then(function (responses) {
+  //   document.getElementById('content').textContent = responses.map(e => e.data).join(" ");
+  // });
+
+
+  // const words = [];
+  // for (let i = 0; i < 9; i++) {
+  //   const promise = axios.get('http://localhost:3456/word/' + i);
+  //   promise.then(response => {
+  //       words[i] = response.data;
+  //       updateUi();
+  //     }
+  //   );
+  // }
+  //
+  // function updateUi() {
+  //   document.getElementById('content').textContent = words.join(" ");
+  // }
+
+
+  // const promise = axios.get('http://localhost:3456/word/0');
+  // promise.then( response => { appendWord(response.data); return axios.get('http://localhost:3456/word/1');})
+  //         .then(response => { appendWord(response.data); return axios.get('http://localhost:3456/word/2');})
+  //         .then(response => { appendWord(response.data); return axios.get('http://localhost:3456/word/3');})
+  //         .then(response => { appendWord(response.data); return axios.get('http://localhost:3456/word/4');})
+  //         .then(response => { appendWord(response.data); return axios.get('http://localhost:3456/word/5');})
+  //         .then(response => { appendWord(response.data); return axios.get('http://localhost:3456/word/6');})
+  //         .then(response => { appendWord(response.data); return axios.get('http://localhost:3456/word/7');})
+  //         .then(response => { appendWord(response.data); return axios.get('http://localhost:3456/word/8');})
+  //         .then(response => { appendWord(response.data); });
+  //
+  // function appendWord(word){
+  //     document.getElementById('content').textContent += ' ' + word;
+  // }
+
+
+
+
+  // let promise = axios.get('http://localhost:3456/word/0');
+  // for (let i = 1; i <= 9; i++) {
+  //   promise = promise.then(response => {
+  //     document.getElementById('content').textContent += ' ' + response.data;
+  //     return axios.get('http://localhost:3456/word/' + i);
+  //   });
+  // }
+
+     // getNextWord({number: 0});
+     //
+     // function getNextWord(command){
+     //
+     //     if (command.word) {
+     //         document.getElementById('content').textContent += ' ' + command.word;
+     //     }
+     //     axios.get('http://localhost:3456/word/' + command.number)
+     //             .then(response => {
+     //                 if (response.data){
+     //                     var newCommand = {word:response.data, number: command.number + 1};
+     //                     getNextWord(newCommand);
+     //                 }
+     //             });
+     // }
+
+
+  let response = await axios.get('http://localhost:3456/word/0');
+  appendWord(response.data);
+  response = await axios.get('http://localhost:3456/word/1');
+  appendWord(response.data);
+  response = await axios.get('http://localhost:3456/word/2');
+  appendWord(response.data);
+  response = await axios.get('http://localhost:3456/word/3');
+  appendWord(response.data);
+  response = await axios.get('http://localhost:3456/word/4');
+  appendWord(response.data);
+  response = await axios.get('http://localhost:3456/word/5');
+  appendWord(response.data);
+  response = await axios.get('http://localhost:3456/word/6');
+  appendWord(response.data);
+  response = await axios.get('http://localhost:3456/word/7');
+  appendWord(response.data);
+  response = await axios.get('http://localhost:3456/word/8');
+  appendWord(response.data);
+
+  function appendWord(word){
+      document.getElementById('content').textContent += ' ' + word;
+  }
+
+
+  //
+  // async function getWords() {
+  //     for (var i = 0; i < 9; i++) {
+  //         const response = await axios.get('http://localhost:3456/word/' + i);
+  //         document.getElementById('content').textContent += ' ' + response.data;
+  //     }
+  // }
+  // getWords();
+
+  // // ASYNC GENERATOR / FOR AWAIT
+  // function* responseGenerator() {
+  //     for (var i = 0; i < 9; i++) {
+  //         yield axios.get('http://localhost:3456/word/' + i);
+  //     }
+  // }
+  //
+  // for await (let response of responseGenerator()) {
+  //     console.log('Async', response);
+  //     document.getElementById('content').textContent += ' ' + response.data;
+  // }
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<div id="content1"></div>
+<div id="content2"></div>
+
+<script src="axios.min.js"></script>
+<script src="https://unpkg.com/rxjs@6.2.0/bundles/rxjs.umd.min.js"></script>
+<script>
+
+  const {range, forkJoin, of, from} = rxjs;
+  const {map, concatMap, mergeMap, switchMap} = rxjs.operators;
+
+  const indices = [...Array(10).keys()];
+
+  // Parallel fetching: NOT REALLY CORRECT (order)
+  // from(indices)
+  //   .pipe(
+  //     map(i => 'http://localhost:3456/word/' + i),
+  //     mergeMap(url => axios.get(url)),
+  //     map(response => response.data)
+  //   )
+  //   .subscribe(function (data) {
+  //     document.getElementById('content1').textContent += data + " ";
+  //   });
+  
+  
+  // Parallel Fetching: Solution 1
+  // of(indices)
+  //   .pipe(
+  //     map(indices => indices.map(i => 'http://localhost:3456/word/' + i)),
+  //     map(urls => urls.map(url => axios.get(url))),
+  //     switchMap(promises => forkJoin(promises)),
+  //     map(responses => responses.map(response => response.data))
+  //   )
+  //   .subscribe(
+  //     data => document.getElementById('content1').textContent = data.join(' ')
+  //   );
+
+  
+  // Parallel Fetching: Solution 2
+  // const words = [];
+  // from(indices)
+  //   .pipe(
+  //     mergeMap((i) => forkJoin(of(i), axios.get("http://localhost:3456/word/" + i))),
+  //   )
+  //   .subscribe(
+  //     ([index, response]) => words[index] = response.data,
+  //     null,
+  //     () => document.getElementById('content1').textContent = words.join(' ')
+  //   );
+
+
+  // Parallel fetching: intermediate updates
+  // const words = [];
+  // from(indices)
+  //     .pipe(
+  //         map(i => [i, 'http://localhost:3456/word/' + i]),
+  //         mergeMap(([i, url]) => forkJoin(of(i), axios.get(url))),
+  //         map(([i,response]) => [i,response.data])
+  //     )
+  //     .subscribe(([i, data]) => {
+  //         words[i] = data;
+  //         document.getElementById('content1').textContent = words.join(' ');
+  //     });
+
+
+  // Sequential fetching
+  from(indices)
+    .pipe(
+      map(i => 'http://localhost:3456/word/' + i),
+      concatMap((url) => axios.get(url)), // concatMap 'subscribes' to the first promise, after the value has been emitted, it 'subscribes' to the second promise etc
+      map(response => response.data)
+    )
+    .subscribe(function (data) {
+      document.getElementById('content2').textContent += data + " ";
+    });
+
+
+
+
+</script>
+</body>
+</html>
+
+
+<!--See: http://reactivex.io/documentation/operators-->
