@@ -25,7 +25,13 @@
     for (let i = 30; i < 45; i++) {
         const worker = new Worker('worker.js');
         worker.postMessage({number: i});
-        worker.onmessage = function(result){console.log("Result: ", result.data)};
+        worker.onmessage = function (result) {
+            console.log("Result: ", result.data);
+            const p = document.createElement('p');
+            p.innerHTML = "Fibonacci(" + i + ") = " + result.data;
+            document.getElementById("container").appendChild(p);
+        };
+
     }
     p = document.createElement('p');
     p.innerHTML = "Hello from second script: " + new Date();
